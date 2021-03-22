@@ -1,24 +1,42 @@
-# README
+Here are some tips on how to use this API - through the terminal or Postman!
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+CREATING A CREATOR WITH FIRST_NAME AND LAST_NAME
+  curl -i -X POST                                                              \
+       -H 'Content-Type: application/json'                                     \
+       -d '{ "creator": { "first_name": "John", "last_name": "Mayer" } }' \
+       http://localhost:3000/api/v1/creators
 
-Things you may want to cover:
+_________________________________________________________________________________________
 
-* Ruby version
+GETTING ALL CREATORS
+  curl -s http://localhost:3000/api/v1/creators?sort='first_name'&sort_direction='asc'&limit='2'&offset='5' | jq
 
-* System dependencies
+_________________________________________________________________________________________
 
-* Configuration
+GETTING A CREATOR BY THE ID
+  curl -s http://localhost:3000/api/v1/creators/49 | jq
 
-* Database creation
+_________________________________________________________________________________________
 
-* Database initialization
+CREATING A GIG WITH BRAND_NAME AND CREATOR
+  curl -i -X POST                                                              \
+     -H 'Content-Type: application/json'                                     \
+     -d '{ "gig": { "brand_name": "Brand Co" } }' \
+     http://localhost:3000/api/v1/creators/49/gigs
 
-* How to run the test suite
+_________________________________________________________________________________________
 
-* Services (job queues, cache servers, search engines, etc.)
+GETTING ALL GIGS
+  curl -s "http://localhost:3000/api/v1/gigs?brand_name="Torp LLC"" | jq
+_________________________________________________________________________________________
 
-* Deployment instructions
+GETTING A GIG BY THE ID
+  curl -s "http://localhost:3000/api/v1/gigs/54?gig_payment="true"" | jq
 
-* ...
+_________________________________________________________________________________________
+
+UPDATING A GIG BY THE ID
+  curl -i -X PATCH                                        \
+     -H 'Content-Type: application/json'              \
+     -d '{ "gig": { "state": "completed" } }'    \
+     http://localhost:3000/api/v1/gigs/15

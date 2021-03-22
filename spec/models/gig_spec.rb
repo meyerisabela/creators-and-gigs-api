@@ -1,24 +1,50 @@
 require 'rails_helper'
 
 describe Gig do
-  creator = Creator.create(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name)
-  let(:create_gig) { Gig.create(brand_name: Faker::Company.name, creator: creator) }
+  context 'when saving a new gig' do
+    context 'when it doesn\'t have a brand name' do
+      it 'doesn\'t create the gig' do
+        gig = FactoryBot.build(:gig, brand_name: nil)
+        expect(gig).not_to be_valid
+      end
+    end
 
-  it 'a gig should have a brand_name' do
-    expect(create_gig.valid?).to eq(true)
-    expect(Gig.new(brand_name: '', creator: creator).save).to eq(false)
+    context 'when it does have a brand name' do
+      it 'creates the gig' do
+        gig = FactoryBot.build(:gig)
+        expect(gig).to be_valid
+      end
+    end
+
+    context 'when it doesn\'t have a creator' do
+      it 'doesn\'t create the gig' do
+        gig = FactoryBot.build(:gig, creator: nil)
+        expect(gig).not_to be_valid
+      end
+    end
+
+    context 'when it has a creator' do
+      it 'creates the gig' do
+        gig = FactoryBot.build(:gig)
+        expect(gig).to be_valid
+      end
+    end
   end
 
-  it 'a gig should have an applied value for state by default' do
-    expect(create_gig.state).to eq('applied')
-  end
+  context 'when changing gig status' do
+    context 'when state is completed' do
+      it 'it creates a gig payment' do
+        gig = FactoryBot.create(:gig, state: 'completed')
 
-  describe '#gig_payments_relation' do
-    it 'when a gig state is changed to completed, gig payment should be created' do
-      gig = create_gig
-      gig.state = 'completed'
+        expect(gig.gig_payment).to be_valid
+      end
+    end
 
-      expect { gig.save }.to change { GigPayment.count }.by(1)
+    context 'when state is not completed' do
+      it 'it doesn\'t creates a gig payment' do
+        gig = FactoryBot.create(:gig)
+        expect(gig.gig_payment).to be_nil
+      end
     end
   end
 end

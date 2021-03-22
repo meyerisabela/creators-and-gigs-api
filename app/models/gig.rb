@@ -1,6 +1,7 @@
 class Gig < ApplicationRecord
   belongs_to :creator
-  has_one :gig_payment
+
+  has_one :gig_payment, dependent: :destroy
 
   before_save :create_gig_payment, if: :state_is_completed?
 
