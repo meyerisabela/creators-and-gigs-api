@@ -22,7 +22,7 @@ CREATING A GIG WITH BRAND_NAME AND CREATOR
   curl -i -X POST                                                              \
      -H 'Content-Type: application/json'                                     \
      -d '{ "gig": { "brand_name": "Brand Co" } }' \
-     http://localhost:3000/api/v1/creators/49/gigs
+     http://localhost:3000/api/v1/creators/6/gigs
 
 _________________________________________________________________________________________
 
@@ -31,7 +31,7 @@ GETTING ALL GIGS
 _________________________________________________________________________________________
 
 GETTING A GIG BY THE ID
-  curl -s "http://localhost:3000/api/v1/gigs/54?gig_payment="true"" | jq
+  curl -s http://localhost:3000/api/v1/gigs/54 | jq
 
 _________________________________________________________________________________________
 
@@ -39,4 +39,4 @@ UPDATING A GIG BY THE ID
   curl -i -X PATCH                                        \
      -H 'Content-Type: application/json'              \
      -d '{ "gig": { "state": "completed" } }'    \
-     http://localhost:3000/api/v1/gigs/15
+     http://localhost:3000/api/v1/gigs/17

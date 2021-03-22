@@ -23,7 +23,7 @@ class Api::V1::GigsController < Api::V1::BaseController
   end
 
   def show
-    @gig_payment = @gig.gig_payment if params[:gig_payment]
+    @gig_payment = @gig.gig_payment
   end
 
   def create
