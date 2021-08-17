@@ -1,5 +1,5 @@
 require 'rails_helper'
-
+# check end to end tests
 describe 'Gigs API', type: :request do
   context 'when requesting all the gigs (GET gigs#index)' do
     it 'should return all gigs' do

@@ -27,10 +27,12 @@ class Api::V1::GigsController < Api::V1::BaseController
   end
 
   def create
+    # creator.create_gig(params())
     @gig = Gig.new(gig_strong_params)
     creator = Creator.find(params[:creator_id])
     @gig.creator = creator
 
+    # @gig.save! --> rescue (base controller)
     if @gig.save
       render :show, status: :created
     else

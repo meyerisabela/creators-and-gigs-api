@@ -2,6 +2,7 @@ class Api::V1::CreatorsController < Api::V1::BaseController
   def index
     sort = %w[first_name last_name].include?(params[:sort]) ? params[:sort] : 'first_name'
     sort_direction = params[:sort_direction] if %w[asc desc].include?(params[:sort_direction])
+
     limit = params[:limit] if a_integer?(params[:limit])
     offset = params[:offset] if a_integer?(params[:offset])
 

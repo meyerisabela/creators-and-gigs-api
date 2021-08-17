@@ -6,6 +6,10 @@ class GigPayment < ApplicationRecord
   states = %w[pending completed]
   validates_inclusion_of :state, in: states
 
+  def self.pending_state_to_completed
+    update(state: 'completed') if self.state == 'pending'
+  end
+
   private
 
   def state_to_paid
@@ -14,9 +18,5 @@ class GigPayment < ApplicationRecord
 
   def state_is_completed?
     state == 'completed'
-  end
-
-  def pending_state_to_completed
-    update(state: 'completed') if state == 'pending'
   end
 end
